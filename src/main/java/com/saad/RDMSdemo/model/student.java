@@ -1,10 +1,10 @@
 package com.saad.RDMSdemo.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -26,6 +26,12 @@ public class student {
 //    when we are use onebyone annotation in two class then create two foreign key in individual class
     @OneToOne(mappedBy = "Student" ,cascade = CascadeType.ALL)
     private Laptop laptop;
+
+//    onetomany relation means one student have many address
+//    it's having mapped by of under the address class foreign key student
+//    one to many is many to one that why we are address class add annotation many to one
+    @OneToMany(mappedBy = "Student", cascade = CascadeType.ALL)
+    private List<address> addresses=new ArrayList<>();
 
     public long getStudentId() {
         return studentId;
@@ -57,5 +63,13 @@ public class student {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<address> addresses) {
+        this.addresses = addresses;
     }
 }
